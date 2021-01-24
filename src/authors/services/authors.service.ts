@@ -13,6 +13,14 @@ export class AuthorsService {
   findAll(): Author[] {
     return AUTHORS;
   }
+
+  getAllPosts(): Post[] {
+    return POSTS;
+  }
+
+  findPostById(id: number): Post {
+    return POSTS.filter((post) => post.id === id)[0];
+  }
 }
 
 const AUTHORS: Author[] = [
@@ -63,7 +71,7 @@ const POSTS: Post[] = [
   },
   {
     id: 5,
-    title: 'post 5',
+    title: 'post 55',
     votes: 4,
     authorId: 3,
   },

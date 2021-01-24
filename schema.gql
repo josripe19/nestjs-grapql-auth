@@ -6,6 +6,7 @@ type Post {
   id: Int!
   title: String!
   votes: Int
+  author: Author!
 }
 
 type Author {
@@ -19,4 +20,6 @@ type Author {
 type Query {
   author(id: Int!): Author
   authors: [Author!]
+  posts: [Post!]
+  post(id: Int!): Post
 }

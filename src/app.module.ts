@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthorsResolver } from './authors/authors.resolver';
 import { AuthorsService } from './authors/services/authors.service';
+import { PostsResolver } from './authors/posts.resover';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { AuthorsService } from './authors/services/authors.service';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService, AuthorsResolver, AuthorsService],
+  providers: [AppService, AuthorsResolver, PostsResolver, AuthorsService],
 })
 export class AppModule {}
