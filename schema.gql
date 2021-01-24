@@ -18,8 +18,10 @@ type Author {
 }
 
 type User {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  """id unique identifier"""
+  id: Int!
+  name: String!
+  age: Int!
 }
 
 type Query {
@@ -38,12 +40,12 @@ type Mutation {
 }
 
 input CreateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  age: Int!
 }
 
 input UpdateUserInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  name: String
+  age: Int
   id: Int!
 }
