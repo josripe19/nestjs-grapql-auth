@@ -2,25 +2,11 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserInput } from '../auth/dto/create-user.input';
 import { UpdateUserInput } from '../auth/dto/update-user.input';
 import { User } from './entities/user.entity';
+import { USERS } from './entities/users.data';
 
 @Injectable()
 export class UsersService {
-  users: User[] = [
-    {
-      id: 1,
-      age: 20,
-      name: 'Jose Rios',
-      email: 'jose@uh.cu',
-      password: 'jose',
-    },
-    {
-      id: 2,
-      age: 21,
-      name: 'Pepe Prieto',
-      email: 'pepe@uh.cu',
-      password: 'pepe',
-    },
-  ];
+  users: User[] = USERS;
 
   create(createUserInput: CreateUserInput): User {
     const maxId = Math.max(...this.users.map((user) => user.id));
