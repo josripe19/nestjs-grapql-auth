@@ -37,6 +37,7 @@ type Query {
   post(id: Int!): Post
   users: [User!]!
   user(id: Int!): User!
+  me: User!
 }
 
 type Mutation {
