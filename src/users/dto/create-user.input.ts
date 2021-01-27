@@ -7,4 +7,10 @@ export class CreateUserInput {
 
   @Field(() => Int)
   age: number;
+
+  @Field()
+  email: string;
+
+  @Field()
+  password: string;
 }

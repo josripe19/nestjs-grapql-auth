@@ -10,4 +10,9 @@ export class User {
 
   @Field(() => Int)
   age: number;
+
+  @Field()
+  email: string;
+
+  password?: string;
 }
