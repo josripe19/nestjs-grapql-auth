@@ -2,11 +2,10 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { AuthorsResolver } from './authors/authors.resolver';
-import { AuthorsService } from './authors/services/authors.service';
-import { PostsResolver } from './authors/posts.resover';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { AuthorsModule } from './authors/authors.module';
+import { PostsService } from './authors/services/posts.service';
 
 @Module({
   imports: [
@@ -15,8 +14,9 @@ import { AuthModule } from './auth/auth.module';
     }),
     UsersModule,
     AuthModule,
+    AuthorsModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AuthorsResolver, PostsResolver, AuthorsService],
+  providers: [AppService, PostsService],
 })
 export class AppModule {}

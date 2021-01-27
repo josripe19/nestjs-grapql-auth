@@ -2,6 +2,19 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type User {
+  """id unique identifier"""
+  id: Int!
+  name: String!
+  age: Int!
+  email: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
 type Post {
   id: Int!
   title: String!
@@ -17,27 +30,14 @@ type Author {
   posts: [Post!]
 }
 
-type User {
-  """id unique identifier"""
-  id: Int!
-  name: String!
-  age: Int!
-  email: String!
-}
-
-type AuthPayload {
-  token: String!
-  user: User!
-}
-
 type Query {
+  users: [User!]!
+  user(id: Int!): User!
+  me: User!
   author(id: Int!): Author
   authors: [Author!]
   posts: [Post!]
   post(id: Int!): Post
-  users: [User!]!
-  user(id: Int!): User!
-  me: User!
 }
 
 type Mutation {

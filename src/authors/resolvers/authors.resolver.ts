@@ -6,13 +6,17 @@ import {
   ResolveField,
   Resolver,
 } from '@nestjs/graphql';
-import { Author } from './models/author.model';
-import { Post } from './models/post.model';
-import { AuthorsService } from './services/authors.service';
+import { Author } from '../models/author.model';
+import { Post } from '../models/post.model';
+import { AuthorsService } from '../services/authors.service';
+import { PostsService } from '../services/posts.service';
 
 @Resolver((of) => Author)
 export class AuthorsResolver {
-  constructor(private authorsService: AuthorsService) {}
+  constructor(
+    private authorsService: AuthorsService,
+    private postsService: PostsService,
+  ) {}
 
   @Query((returns) => Author, { name: 'author', nullable: true })
   async getAuthor(
@@ -28,6 +32,6 @@ export class AuthorsResolver {
 
   @ResolveField('posts', (returns) => [Post], { nullable: true })
   async getPosts(@Parent() author: Author): Promise<Post[]> {
-    return this.authorsService.getPosts(author.id);
+    return this.postsService.findByAuthorId(author.id);
   }
 }
