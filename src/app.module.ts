@@ -6,6 +6,7 @@ import { AuthorsResolver } from './authors/authors.resolver';
 import { AuthorsService } from './authors/services/authors.service';
 import { PostsResolver } from './authors/posts.resover';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { UsersModule } from './users/users.module';
       autoSchemaFile: 'schema.gql',
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, AuthorsResolver, PostsResolver, AuthorsService],

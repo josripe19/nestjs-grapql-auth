@@ -1,15 +1,7 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-  UnauthorizedException,
-} from '@nestjs/common';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import { Injectable } from '@nestjs/common';
+import { CreateUserInput } from '../auth/dto/create-user.input';
+import { UpdateUserInput } from '../auth/dto/update-user.input';
 import { User } from './entities/user.entity';
-import { LoginUserInput } from './dto/login-user.input';
-import { AuthPayload } from './dto/auth-payload.dto';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UsersService {
@@ -30,30 +22,11 @@ export class UsersService {
     },
   ];
 
-  constructor(private jwtService: JwtService) {}
-
-  create(createUserInput: CreateUserInput): AuthPayload {
-    if (this.users.find((user) => user.email === createUserInput.email)) {
-      throw new HttpException(
-        {
-          message: 'Input data validation failed',
-          errors: 'Email most be unique',
-        },
-        HttpStatus.BAD_REQUEST,
-      );
-    }
-
+  create(createUserInput: CreateUserInput): User {
     const maxId = Math.max(...this.users.map((user) => user.id));
     const newUser: User = { id: maxId + 1, ...createUserInput };
     this.users.push(newUser);
-
-    return {
-      user: newUser,
-      token: this.jwtService.sign({
-        email: newUser.email,
-        sub: newUser.id,
-      }),
-    };
+    return newUser;
   }
 
   findAll(): User[] {
@@ -78,25 +51,5 @@ export class UsersService {
 
   findOneByEmail(email: string): User {
     return this.users.find((user) => user.email === email);
-  }
-
-  validateUser({ email, password }: LoginUserInput): User {
-    const user = this.findOneByEmail(email);
-    if (!user || user.password !== password) throw new UnauthorizedException();
-
-    const { password: userPass, ...result } = user;
-    return result;
-  }
-
-  login(loginUser: LoginUserInput): AuthPayload {
-    const validatedUser = this.validateUser(loginUser);
-
-    return {
-      user: validatedUser,
-      token: this.jwtService.sign({
-        email: validatedUser.email,
-        sub: validatedUser.id,
-      }),
-    };
   }
 }
